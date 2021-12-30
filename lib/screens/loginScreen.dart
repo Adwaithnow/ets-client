@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/components/appComponents/appButton.dart';
+import 'package:test_app/components/appComponents/appInput.dart';
 import 'package:test_app/core/appData.dart';
 import 'package:test_app/network/authNetwork.dart';
 import 'package:test_app/screens/home.dart';
-
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -42,7 +43,6 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       isLoading = false;
       summary = AppData.user.username ?? '...';
-  
     });
     if (result == 'ok') {
       Navigator.push(
@@ -58,15 +58,17 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         title: const Center(child: Text("LOGIN")),
         actions: [
           IconButton(
-            onPressed: () => AppData.themeManager.toggleTheme(
-              AppData.themeManager.themeMode != ThemeMode.dark),
+            onPressed: () => AppData.themeManager
+                .toggleTheme(AppData.themeManager.themeMode != ThemeMode.dark),
             icon: AppData.themeManager.themeMode == ThemeMode.dark
-              ? const Icon(Icons.light_mode)
-              : const Icon(Icons.dark_mode),
+                ? const Icon(Icons.light_mode)
+                : const Icon(Icons.dark_mode),
           ),
         ],
       ),
@@ -77,36 +79,38 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'User Name',
-                  hintText: 'Enter Your Name',
-                ),
+              AppInputFiled(
                 onChanged: (value) {
                   userId = value;
                 }, // da one sec ippo varam ahda
+                labelText: 'User Name',
+                hintText: 'Enter Your Name',
               ),
               const SizedBox(
                 height: 10,
               ),
-              TextField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'password',
-                  hintText: 'Enter Your password',
-                ),
+              AppInputFiled(
                 onChanged: (value) {
                   password = value;
                 }, // da one sec ippo varam ahda
+                labelText: 'password',
+                hintText: 'Enter Your password',
               ),
-              isLoading
-                  ? const CircularProgressIndicator()
-                  : MaterialButton(
-                      color: Colors.cyanAccent,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: isLoading
+                    ? CircularProgressIndicator(
+                      backgroundColor: Theme.of(context).backgroundColor,
+                      color: Theme.of(context).primaryColor,
+                    )
+                    : AppButton(
                       onPressed: login,
-                      child: const Text("Login"),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Text('Login'),
+                      ),
                     ),
+              ),
             ],
           ),
         ),
