@@ -3,6 +3,7 @@ import 'package:test_app/core/appData.dart';
 import 'package:test_app/network/authNetwork.dart';
 import 'package:test_app/screens/home.dart';
 
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -13,7 +14,25 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String summary = '', userId = '', password = '';
   bool isLoading = false;
-  // AppData appData = AppData();
+
+  @override
+  void initState() {
+    AppData.themeManager.addListener(themeManagerListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    AppData.themeManager.removeListener(themeManagerListener);
+    super.dispose();
+  }
+
+  themeManagerListener() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
   login() async {
     setState(() {
       isLoading = true;
@@ -23,11 +42,12 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       isLoading = false;
       summary = AppData.user.username ?? '...';
+  
     });
     if (result == 'ok') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => home()),
+        MaterialPageRoute(builder: (context) => const home()),
       );
     } else {
       ScaffoldMessenger.of(context)
@@ -39,17 +59,26 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("LOGIN")),
+        title: const Center(child: Text("LOGIN")),
+        actions: [
+          IconButton(
+            onPressed: () => AppData.themeManager.toggleTheme(
+              AppData.themeManager.themeMode != ThemeMode.dark),
+            icon: AppData.themeManager.themeMode == ThemeMode.dark
+              ? const Icon(Icons.light_mode)
+              : const Icon(Icons.dark_mode),
+          ),
+        ],
       ),
       body: Center(
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           // color: Colors.red,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'User Name',
                   hintText: 'Enter Your Name',
@@ -58,11 +87,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   userId = value;
                 }, // da one sec ippo varam ahda
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'password',
                   hintText: 'Enter Your password',
@@ -72,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 }, // da one sec ippo varam ahda
               ),
               isLoading
-                  ? CircularProgressIndicator()
+                  ? const CircularProgressIndicator()
                   : MaterialButton(
                       color: Colors.cyanAccent,
                       onPressed: login,
