@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/core/appData.dart';
 
 class AppButton extends StatelessWidget {
-  AppButton({Key? key, required this.onPressed, this.child}) : super(key: key);
+  const AppButton({Key? key, required this.onPressed, this.child}) : super(key: key);
 
   final VoidCallback onPressed;
   final Widget? child;
@@ -12,8 +13,7 @@ class AppButton extends StatelessWidget {
       onPressed: onPressed,
       child: child ?? const Text("OK"),
       style: ButtonStyle(
-        backgroundColor:
-            Theme.of(context).elevatedButtonTheme.style?.backgroundColor,
+        backgroundColor: MaterialStateProperty.all<Color>(AppColors.primary),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(800),

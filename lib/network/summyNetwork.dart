@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:test_app/core/appData.dart';
 
 class SummyNetwork {
-  Dio _dio = Dio();
+  final Dio _dio = Dio();
 
   uploadFile(File file) async {
     try {

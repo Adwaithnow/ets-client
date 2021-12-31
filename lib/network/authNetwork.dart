@@ -3,7 +3,7 @@ import 'package:test_app/core/appData.dart';
 import 'package:test_app/models/userModel.dart';
 
 class AuthNetwork {
-  Dio _dio = Dio();
+  final Dio _dio = Dio();
 
   login(userId, password) async {
     try {

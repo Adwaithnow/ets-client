@@ -3,7 +3,7 @@ import 'package:test_app/components/appComponents/appButton.dart';
 import 'package:test_app/components/appComponents/appInput.dart';
 import 'package:test_app/core/appData.dart';
 import 'package:test_app/network/authNetwork.dart';
-import 'package:test_app/screens/home.dart';
+import 'package:test_app/screens/homeScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -15,24 +15,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String summary = '', userId = '', password = '';
   bool isLoading = false;
-
-  @override
-  void initState() {
-    AppData.themeManager.addListener(themeManagerListener);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    AppData.themeManager.removeListener(themeManagerListener);
-    super.dispose();
-  }
-
-  themeManagerListener() {
-    if (mounted) {
-      setState(() {});
-    }
-  }
 
   login() async {
     setState(() {
@@ -47,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (result == 'ok') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const home()),
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
     } else {
       ScaffoldMessenger.of(context)
@@ -58,23 +40,14 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: AppColors.background,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: AppColors.primary,
         title: const Center(child: Text("LOGIN")),
-        actions: [
-          IconButton(
-            onPressed: () => AppData.themeManager
-                .toggleTheme(AppData.themeManager.themeMode != ThemeMode.dark),
-            icon: AppData.themeManager.themeMode == ThemeMode.dark
-                ? const Icon(Icons.light_mode)
-                : const Icon(Icons.dark_mode),
-          ),
-        ],
       ),
       body: Center(
         child: Container(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(20),
           // color: Colors.red,
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -87,26 +60,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 hintText: 'Enter Your Name',
               ),
               const SizedBox(
-                height: 10,
+                height: 20,
               ),
               AppInputFiled(
                 onChanged: (value) {
                   password = value;
-                }, // da one sec ippo varam ahda
+                },
+                obscureText: true,
                 labelText: 'password',
                 hintText: 'Enter Your password',
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(20.0),
                 child: isLoading
-                    ? CircularProgressIndicator(
-                      backgroundColor: Theme.of(context).backgroundColor,
-                      color: Theme.of(context).primaryColor,
+                    ? const CircularProgressIndicator(
+                      backgroundColor: AppColors.background,
+                      color: AppColors.primary,
                     )
                     : AppButton(
                       onPressed: login,
                       child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                         child: Text('Login'),
                       ),
                     ),
