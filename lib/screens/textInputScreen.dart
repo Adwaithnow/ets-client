@@ -30,15 +30,15 @@ class _TextInputScreenState extends State<TextInputScreen> {
           FloatingActionButton(
             onPressed: () async {
               var result = await Clipboard.getData('text/plain');
-              _textController.text =
-                  result?.text ?? _textController.text;
+              _textController.text = result?.text ?? _textController.text;
             },
+            heroTag: null,
             child: const Icon(Icons.paste_rounded),
           ),
           const SizedBox(width: 20),
           FloatingActionButton(
-            onPressed: () async {
-            },
+            onPressed: () async {},
+            heroTag: null,
             child: const Icon(Icons.send_rounded),
           ),
         ],
@@ -48,7 +48,7 @@ class _TextInputScreenState extends State<TextInputScreen> {
           const AppPageHeading(title: 'Get Summary'),
           TextField(
             controller: _textController,
-            maxLines: 10,
+            maxLines: 20,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),

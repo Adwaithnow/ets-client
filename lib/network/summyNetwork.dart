@@ -15,7 +15,7 @@ class SummyNetwork {
       Options _options = Options(headers: {
         "token": "Bearer ${AppData.user.accessToken}",
       });
-      var response = await _dio.post('${AppData.baseURL}/test/file-upload',
+      var response = await _dio.put('${AppData.baseURL}/extracttext',
           data: formData, options: _options);
       return 'ok';
     } catch (error) {

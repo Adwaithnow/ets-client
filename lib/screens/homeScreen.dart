@@ -22,7 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
       isLoading = true;
     });
     FilePickerResult? _pickedFile = await FilePicker.platform.pickFiles();
-    if (_pickedFile == null) return;
+    if (_pickedFile == null) {
+      setState(() {
+        isLoading = false;
+      });
+      return;
+    }
 
     File file = File(_pickedFile.files.single.path ?? '');
     SummyNetwork _smynw = SummyNetwork();
