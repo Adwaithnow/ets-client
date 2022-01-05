@@ -120,29 +120,33 @@ class _HomeScreenState extends State<HomeScreen> {
       //    ],
       //  ),
       //),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AppPageHeading(
-            title: 'HOME',
-            automaticallyImplyBack: false,
-            prefix: IconButton(
-              onPressed: getSummyHistory,
-              icon: const Icon(Icons.refresh),
+      body: SingleChildScrollView(
+        physics: ScrollPhysics(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AppPageHeading(
+              title: 'HOME',
+              automaticallyImplyBack: false,
+              prefix: IconButton(
+                onPressed: getSummyHistory,
+                icon: const Icon(Icons.refresh),
+              ),
             ),
-          ),
-          isLoadingHistory
-              ? const LinearProgressIndicator(
-                  backgroundColor: AppColors.primary,
-                  color: AppColors.secondary,
-                )
-              : ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: _summyHistory.length,
-                  itemBuilder: (context, index) =>
-                      SummyBox(summy: _summyHistory[index]),
-                ),
-        ],
+            isLoadingHistory
+                ? const LinearProgressIndicator(
+                    backgroundColor: AppColors.primary,
+                    color: AppColors.secondary,
+                  )
+                : ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: _summyHistory.length,
+                    itemBuilder: (context, index) =>
+                        SummyBox(summy: _summyHistory[index]),
+                  ),
+          ],
+        ),
       ),
     );
   }
@@ -178,7 +182,7 @@ class SummyBox extends StatelessWidget {
     String _timeStamp = '${_date.day}/${_date.month}/${_date.year}';
     //_timeStamp += _date.day;
     return Container(
-      margin: const EdgeInsets.only(top: 10, right: 10, left: 10),
+      margin: const EdgeInsets.only(top: 5, right: 10, left: 10),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColors.inputFill,
