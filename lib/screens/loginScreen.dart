@@ -56,8 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onChanged: (value) {
                   userId = value;
                 }, // da one sec ippo varam ahda
-                labelText: 'User Name',
-                hintText: 'Enter Your Name',
+                hintText: 'Enter User Name',
               ),
               const SizedBox(
                 height: 20,
@@ -67,8 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   password = value;
                 },
                 obscureText: true,
-                labelText: 'password',
-                hintText: 'Enter Your password',
+                hintText: 'Enter Your Password',
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),

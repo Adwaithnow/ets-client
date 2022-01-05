@@ -5,14 +5,12 @@ class AppInputFiled extends StatelessWidget {
   const AppInputFiled({
     Key? key,
     required this.onChanged,
-    this.labelText,
     this.hintText,
     this.obscureText,
     this.maxLines,
   }) : super(key: key);
 
   final Function(String) onChanged;
-  final String? labelText;
   final String? hintText;
   final bool? obscureText;
   final int? maxLines;

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:test_app/core/appData.dart';
 
 class AppPageHeading extends StatelessWidget {
-  const AppPageHeading({Key? key, this.title}) : super(key: key);
+  const AppPageHeading({Key? key, this.title, this.automaticallyImplyBack = true}) : super(key: key);
   final String? title;
+  final bool automaticallyImplyBack;
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +14,16 @@ class AppPageHeading extends StatelessWidget {
       alignment: Alignment.bottomLeft,
       decoration: const BoxDecoration(
           border: Border(bottom: BorderSide(color: Colors.black))),
-      child: Text(
-        title??'',
-        style: const TextStyle(color: AppColors.secondary, fontSize: 22),
+      child: Row(
+        children: [
+          !automaticallyImplyBack ? const SizedBox() : IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: const Icon(Icons.arrow_back)),
+          Text(
+            title ?? '',
+            style: const TextStyle(color: AppColors.secondary, fontSize: 22),
+          ),
+        ],
       ),
     );
   }

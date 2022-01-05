@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (result == 'ok') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => const TextInputScreen(showResult: true,)),
       );
     } else {
       ScaffoldMessenger.of(context)
@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             HomeButton(
-              name: 'CLIPBOARD',
+              name: 'TEXT',
               onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -80,7 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: Column(
           children: const [
-            AppPageHeading(title: 'HOME'),
+            AppPageHeading(
+              automaticallyImplyBack: false,
+              title: 'HOME'
+            ),
             Text('Recents n stuff'),
           ],
         ));
