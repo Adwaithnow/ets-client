@@ -24,14 +24,17 @@ class AppInputFiled extends StatelessWidget {
       textAlign: TextAlign.center,
       style: const TextStyle(color: AppColors.tertiary),
       decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide.none,
-          ),
-          filled: true,
-          fillColor: AppColors.inputFill,
-          hintText: hintText ?? '',
-          hintStyle: const TextStyle(color: AppColors.tertiary)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: BorderSide.none,
+        ),
+        filled: true,
+        fillColor: AppColors.inputFill,
+        hintText: hintText ?? '',
+        hintStyle: const TextStyle(
+          color: AppColors.tertiary,
+        ),
+      ),
     );
   }
 }

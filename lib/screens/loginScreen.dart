@@ -72,16 +72,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(20.0),
                 child: isLoading
                     ? const CircularProgressIndicator(
-                      backgroundColor: AppColors.background,
-                      color: AppColors.primary,
-                    )
+                        backgroundColor: AppColors.background,
+                        color: AppColors.primary,
+                      )
                     : AppButton(
-                      onPressed: login,
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                        child: Text('Login'),
+                        onPressed: login,
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 10),
+                          child: Text('Login'),
+                        ),
                       ),
-                    ),
               ),
             ],
           ),

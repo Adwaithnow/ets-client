@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:test_app/network/summyNetwork.dart';
 
 class TextInputScreen extends StatefulWidget {
-  const TextInputScreen({Key? key, this.showResult = false}) : super(key: key);
-  final bool showResult;
+  const TextInputScreen({Key? key, this.initialText = ''}) : super(key: key);
+  final String initialText;
 
   @override
   _TextInputScreenState createState() => _TextInputScreenState();
@@ -16,21 +16,30 @@ class TextInputScreen extends StatefulWidget {
 class _TextInputScreenState extends State<TextInputScreen> {
   final _textController = TextEditingController();
   bool isLoading = false;
-  bool showResult = false;
   String title = '';
+  TextAlign _textAlign = TextAlign.start;
   @override
   void dispose() {
     _textController.dispose();
+    //_textController.removeListener(() {});
     super.dispose();
   }
 
   @override
   void initState() {
-    if (widget.showResult) {
-      setState(() => _textController.text = AppData.mysummary);
+    setTextAlign();
+    if (widget.initialText != '') {
+      setState(() => _textController.text = widget.initialText);
     }
-    setState(() => showResult = widget.showResult);
+    _textController.addListener(() => setTextAlign());
     super.initState();
+  }
+
+  setTextAlign() {
+    setState(() {
+      _textAlign =
+          _textController.text == '' ? TextAlign.center : TextAlign.start;
+    });
   }
 
   getSummary() async {
@@ -41,16 +50,16 @@ class _TextInputScreenState extends State<TextInputScreen> {
     var result = await _smynw.getSummary(title, _textController.text);
     setState(() {
       isLoading = false;
-      showResult = true;
       _textController.text = AppData.mysummary;
     });
     if (result == 'ok') {
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => const TextInputScreen(
-                  showResult: true,
-                )),
+          builder: (context) => TextInputScreen(
+            initialText: AppData.mysummary,
+          ),
+        ),
       );
     } else {
       ScaffoldMessenger.of(context)
@@ -96,16 +105,16 @@ class _TextInputScreenState extends State<TextInputScreen> {
       ),
       body: Column(
         children: [
-          AppPageHeading(title: showResult ? 'RESULT' : 'Get Summary'),
-          showResult
-              ? const SizedBox()
-              : AppInputFiled(
-                  onChanged: (val) => title = val,
-                  hintText: 'Enter Title',
-                ),
+          AppPageHeading(
+              title: widget.initialText != '' ? 'RESULT' : 'Get Summary'),
+          AppInputFiled(
+            onChanged: (val) => title = val,
+            hintText: 'Enter Title',
+          ),
           TextField(
             controller: _textController,
             maxLines: 20,
+            textAlign: _textAlign,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -113,6 +122,10 @@ class _TextInputScreenState extends State<TextInputScreen> {
               ),
               filled: true,
               fillColor: AppColors.inputFill,
+              hintText: 'Enter Text',
+              hintStyle: const TextStyle(
+                color: AppColors.tertiary,
+              ),
             ),
           ),
         ],

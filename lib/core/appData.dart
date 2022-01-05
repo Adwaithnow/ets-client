@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/models/summyModel.dart';
 import 'package:test_app/models/userModel.dart';
 
 class AppData {
@@ -7,6 +8,8 @@ class AppData {
       'http://ec2-3-142-145-43.us-east-2.compute.amazonaws.com:3000';
   static User user = User();
   static String mysummary = '';
+  static String myextracted = '';
+  static List<Summy> summyHistory = [];
 }
 
 class AppColors {
