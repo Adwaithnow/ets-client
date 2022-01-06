@@ -1,10 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:test_app/components/appComponents/appButton.dart';
 import 'package:test_app/components/appComponents/appInput.dart';
 import 'package:test_app/core/appData.dart';
 import 'package:test_app/network/authNetwork.dart';
 import 'package:test_app/screens/homeScreen.dart';
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -41,10 +43,6 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        title: const Center(child: Text("LOGIN")),
-      ),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(20),
@@ -52,10 +50,16 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              Container(
+                width: 100,
+                child: SvgPicture.asset("images/ETSLOGO.svg",
+                width: 100,
+                height: 100,),
+              ),
               AppInputFiled(
                 onChanged: (value) {
                   userId = value;
-                }, // da one sec ippo varam ahda
+                }, 
                 hintText: 'Enter User Name',
               ),
               const SizedBox(
@@ -84,6 +88,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
               ),
+              Text("Dont have account ?"),
+              // Container(
+              //   child:SvgPicture.asset("images/ETSLOGO.svg")
+              // )
             ],
           ),
         ),
