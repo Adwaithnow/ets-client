@@ -7,7 +7,7 @@ class AppData {
   static String baseURL =
       'http://ec2-3-142-145-43.us-east-2.compute.amazonaws.com:3000';
   static User user = User();
-  static String mysummary = '';
+  static Summy mysummary = Summy();
   static String myextracted = '';
   static List<Summy> summyHistory = [];
 }
@@ -18,4 +18,5 @@ class AppColors {
   static const secondary = Color(0xffffffff);
   static const tertiary = Color(0xff9d9e9f);
   static const inputFill = Color(0xff111417);
+  static const errorColor = Colors.red;
 }

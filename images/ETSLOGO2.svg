@@ -2,13 +2,13 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="191mm"
-   height="98mm"
-   viewBox="0 0 191 98"
+   width="200mm"
+   height="100mm"
+   viewBox="0 0 200 100"
    version="1.1"
    id="svg5"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20, custom)"
-   sodipodi:docname="ETSLOGO.svg"
+   sodipodi:docname="ETSLOGO2.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -26,15 +26,15 @@
      showgrid="false"
      inkscape:lockguides="false"
      inkscape:zoom="0.7071068"
-     inkscape:cx="370.52394"
-     inkscape:cy="51.618794"
+     inkscape:cx="556.49302"
+     inkscape:cy="120.91526"
      inkscape:window-width="1918"
      inkscape:window-height="1055"
      inkscape:window-x="0"
      inkscape:window-y="23"
      inkscape:window-maximized="1"
      inkscape:current-layer="g9766"
-     width="209mm"
+     width="190mm"
      inkscape:snap-object-midpoints="true" />
   <defs
      id="defs2">
@@ -91,7 +91,7 @@
        transform="translate(-4.5438109,72.907512)" />
     <g
        id="g1937"
-       transform="translate(-3.789207,5.8454616)">
+       transform="matrix(1.0000012,0,0,1,0.71067386,6.8454616)">
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"

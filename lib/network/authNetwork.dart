@@ -19,4 +19,19 @@ class AuthNetwork {
       return 'error!';
     }
   }
+
+  register(email, userId, password) async {
+    try {
+      var response = await _dio.post('${AppData.baseURL}/auth/register',
+          data: {"email": email,"username": userId, "password": password});
+      User _user = User.fromJson(response.data);
+      AppData.user = _user;
+      return 'ok';
+    } catch (error) {
+      if (error is DioError) {
+        return error.response?.data ?? 'error!';
+      }
+      return 'error!';
+    }
+  }
 }

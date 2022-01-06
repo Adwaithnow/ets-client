@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:test_app/components/appComponents/appPageHeading.dart';
+//import 'package:test_app/components/appComponents/fabButton.dart';
 import 'package:test_app/core/appData.dart';
 import 'package:test_app/models/summyModel.dart';
+import 'package:test_app/models/userModel.dart';
 import 'package:test_app/network/summyNetwork.dart';
+import 'package:test_app/screens/loginScreen.dart';
 import 'package:test_app/screens/summyScreen.dart';
 import 'package:test_app/screens/textInputScreen.dart';
 
@@ -40,32 +43,39 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       isLoading = true;
     });
-    FilePickerResult? _pickedFile = await FilePicker.platform.pickFiles();
-    if (_pickedFile == null) {
+    try {
+      FilePickerResult? _pickedFile = await FilePicker.platform.pickFiles();
+      if (_pickedFile == null) {
+        setState(() {
+          isLoading = false;
+        });
+        return;
+      }
+
+      File file = File(_pickedFile.files.single.path ?? '');
+      SummyNetwork _smynw = SummyNetwork();
+      var result = await _smynw.uploadFile(file);
+      setState(() {
+        isLoading = false;
+      });
+      if (result == 'ok') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TextInputScreen(
+              initialText: AppData.myextracted,
+            ),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(result)));
+      }
+    } catch (e) {
       setState(() {
         isLoading = false;
       });
       return;
-    }
-
-    File file = File(_pickedFile.files.single.path ?? '');
-    SummyNetwork _smynw = SummyNetwork();
-    var result = await _smynw.uploadFile(file);
-    setState(() {
-      isLoading = false;
-    });
-    if (result == 'ok') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => TextInputScreen(
-            initialText: AppData.myextracted,
-          ),
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(result)));
     }
   }
 
@@ -76,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          HomeButton(
+          HomePageButton(
             name: 'TEXT',
             onPressed: () => Navigator.push(
                 context,
@@ -95,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: AppColors.secondary,
                   ),
                 )
-              : HomeButton(
+              : HomePageButton(
                   name: 'OCR',
                   onPressed: uploadFile,
                 ),
@@ -120,40 +130,50 @@ class _HomeScreenState extends State<HomeScreen> {
       //    ],
       //  ),
       //),
-      body: SingleChildScrollView(
-        physics: ScrollPhysics(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AppPageHeading(
-              title: 'HOME',
-              automaticallyImplyBack: false,
-              prefix: IconButton(
-                onPressed: getSummyHistory,
-                icon: const Icon(Icons.refresh),
-              ),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AppPageHeading(
+            title: 'HOME',
+            automaticallyImplyBack: false,
+            prefix: IconButton(
+              onPressed: () {
+                AppData.user = User();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (_) => const LoginScreen()),
+                    (route) => false);
+              },
+              icon: const Icon(Icons.logout_rounded),
             ),
-            isLoadingHistory
-                ? const LinearProgressIndicator(
-                    backgroundColor: AppColors.primary,
-                    color: AppColors.secondary,
-                  )
-                : ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: _summyHistory.length,
-                    itemBuilder: (context, index) =>
-                        SummyBox(summy: _summyHistory[index]),
-                  ),
-          ],
-        ),
+            suffix: IconButton(
+              onPressed: getSummyHistory,
+              icon: const Icon(Icons.refresh),
+            ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: isLoadingHistory
+                  ? const LinearProgressIndicator(
+                      backgroundColor: AppColors.primary,
+                      color: AppColors.secondary,
+                    )
+                  : ListView.builder(
+                      //physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: _summyHistory.length,
+                      itemBuilder: (context, index) =>
+                          SummyBox(summy: _summyHistory[index]),
+                    ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class HomeButton extends StatelessWidget {
-  const HomeButton({Key? key, this.name, required this.onPressed})
+class HomePageButton extends StatelessWidget {
+  const HomePageButton({Key? key, this.name, required this.onPressed})
       : super(key: key);
 
   final String? name;

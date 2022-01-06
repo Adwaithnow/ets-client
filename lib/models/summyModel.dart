@@ -1,4 +1,5 @@
 class Summy {
+  String? id;
   String? title;
   String? user;
   String? summary;
@@ -6,6 +7,7 @@ class Summy {
   String? updatedAt;
 
   Summy({
+    this.id,
     this.title,
     this.user,
     this.summary,
@@ -14,6 +16,7 @@ class Summy {
   });
 
   Summy.fromJson(Map<String, dynamic> json) {
+    id = json['_id'];
     title = json['title'];
     user = json['user'];
     summary = json['summary'];
@@ -23,6 +26,7 @@ class Summy {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = id;
     data['title'] = title;
     data['user'] = user;
     data['summary'] = summary;

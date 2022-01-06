@@ -4,6 +4,7 @@ import 'package:test_app/components/appComponents/appPageHeading.dart';
 import 'package:test_app/core/appData.dart';
 import 'package:flutter/services.dart';
 import 'package:test_app/network/summyNetwork.dart';
+import 'package:test_app/screens/summyScreen.dart';
 
 class TextInputScreen extends StatefulWidget {
   const TextInputScreen({Key? key, this.initialText = ''}) : super(key: key);
@@ -42,22 +43,23 @@ class _TextInputScreenState extends State<TextInputScreen> {
     });
   }
 
-  getSummary() async {
+  summarizeText() async {
     setState(() {
       isLoading = true;
     });
     SummyNetwork _smynw = SummyNetwork();
-    var result = await _smynw.getSummary(title, _textController.text);
+    var result = await _smynw.summarizeText(title, _textController.text);
     setState(() {
       isLoading = false;
-      _textController.text = AppData.mysummary;
+      //_textController.text = AppData.mysummary;
     });
     if (result == 'ok') {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => TextInputScreen(
-            initialText: AppData.mysummary,
+          builder: (context) => SummyScreen(
+            summy: AppData.mysummary,
+            //initialText: AppData.mysummary,
           ),
         ),
       );
@@ -92,7 +94,7 @@ class _TextInputScreenState extends State<TextInputScreen> {
           ),
           const SizedBox(width: 10),
           FloatingActionButton(
-            onPressed: getSummary,
+            onPressed: summarizeText,
             heroTag: null,
             child: !isLoading
                 ? const Icon(Icons.send_rounded)
@@ -103,32 +105,40 @@ class _TextInputScreenState extends State<TextInputScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          AppPageHeading(
-              title: widget.initialText != '' ? 'RESULT' : 'Get Summary'),
-          AppInputFiled(
-            onChanged: (val) => title = val,
-            hintText: 'Enter Title',
-          ),
-          TextField(
-            controller: _textController,
-            maxLines: 20,
-            textAlign: _textAlign,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide.none,
-              ),
-              filled: true,
-              fillColor: AppColors.inputFill,
-              hintText: 'Enter Text',
-              hintStyle: const TextStyle(
-                color: AppColors.tertiary,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            AppPageHeading(
+                title: widget.initialText != '' ? 'RESULT' : 'Get Summary'),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: AppInputFiled(
+                onChanged: (val) => title = val,
+                hintText: 'Enter Title',
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextField(
+                controller: _textController,
+                maxLines: 20,
+                textAlign: _textAlign,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide.none,
+                  ),
+                  filled: true,
+                  fillColor: AppColors.inputFill,
+                  hintText: 'Enter Text',
+                  hintStyle: const TextStyle(
+                    color: AppColors.tertiary,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
