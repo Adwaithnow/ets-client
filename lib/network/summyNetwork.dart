@@ -96,10 +96,7 @@ class SummyNetwork {
         data: jsonEncode(_data),
         options: _options,
       );
-      AppData.summyHistory = List.generate(
-        response.data.length,
-        (index) => Summy.fromJson(response.data[index]),
-      );
+      // AppData.mysummary = Summy.fromJson(response.data);
       //AppData.mysummary = response.data['summary'] ?? '';
       return 'ok';
     } catch (error) {

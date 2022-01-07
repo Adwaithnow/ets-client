@@ -30,6 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  @override
+  setState(VoidCallback fn) => mounted ? super.setState(fn) : {};
+
   Future<void> getSummyHistory() async {
     setState(() => isLoadingHistory = true);
     SummyNetwork _smynw = SummyNetwork();

@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Simple",
+      title: "ETS",
       home: const LoginScreen(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark()

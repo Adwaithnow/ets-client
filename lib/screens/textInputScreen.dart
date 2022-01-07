@@ -81,6 +81,8 @@ class _TextInputScreenState extends State<TextInputScreen> {
                 await Clipboard.setData(
                     ClipboardData(text: _textController.text));
               },
+              foregroundColor: AppColors.secondary,
+              backgroundColor: AppColors.primary,
               heroTag: null,
               child: const Icon(Icons.copy_rounded)),
           const SizedBox(width: 10),
@@ -89,6 +91,8 @@ class _TextInputScreenState extends State<TextInputScreen> {
               var result = await Clipboard.getData('text/plain');
               _textController.text = result?.text ?? _textController.text;
             },
+            foregroundColor: AppColors.secondary,
+            backgroundColor: AppColors.primary,
             heroTag: null,
             child: const Icon(Icons.paste_rounded),
           ),
@@ -96,6 +100,8 @@ class _TextInputScreenState extends State<TextInputScreen> {
           FloatingActionButton(
             onPressed: summarizeText,
             heroTag: null,
+            foregroundColor: AppColors.secondary,
+            backgroundColor: AppColors.primary,
             child: !isLoading
                 ? const Icon(Icons.send_rounded)
                 : const CircularProgressIndicator(

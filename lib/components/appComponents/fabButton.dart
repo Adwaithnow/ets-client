@@ -11,6 +11,11 @@ class FabButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-        onPressed: onPressed, heroTag: null, child: icon ?? const Icon(Icons.check));
+      onPressed: onPressed,
+      heroTag: null,
+      child: icon ?? const Icon(Icons.check),
+      foregroundColor: AppColors.secondary,
+      backgroundColor: AppColors.primary,
+    );
   }
 }
