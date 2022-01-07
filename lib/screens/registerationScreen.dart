@@ -112,7 +112,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   confirmpassword = value;
                 },
                 obscureText: true,
-                hintText: 'COnfirm Your Password',
+                hintText: 'Confirm Your Password',
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),

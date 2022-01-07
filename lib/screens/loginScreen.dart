@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
             margin: EdgeInsets.only(top: mq * 0.1),
             padding: EdgeInsets.all(mq * 0.1),
             //color: Colors.red,
-            child: Center(child: Image.asset('images/etts.png')),
+            child: Center(child: Image.asset('images/ETSLOGO.png')),
           ),
           Center(
             child: Padding(
@@ -110,12 +110,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const RegistrationScreen(),
-                      )
-                    ),
-                    child: const Text("Dont have account ?"),
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => const RegistrationScreen(),
+                    )),
+                    child: const Text("Don't have an account ?"),
                   ),
                   // Container(
                   //   child:SvgPicture.asset("images/ETSLOGO.svg")
