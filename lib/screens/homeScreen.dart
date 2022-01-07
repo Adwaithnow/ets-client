@@ -161,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: AppColors.secondary,
                     )
                   : ListView.builder(
-                      //physics: NeverScrollableScrollPhysics(),
+                      physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: _summyHistory.length,
                       itemBuilder: (context, index) =>
