@@ -14,7 +14,7 @@ class AppData {
 
 class AppColors {
   static const background = Color(0xff14181b);
-  static const primary = Color(0xff00968a);
+  static const primary = Color(0xff686cf3);
   static const secondary = Color(0xffffffff);
   static const tertiary = Color(0xff9d9e9f);
   static const inputFill = Color(0xff111417);
